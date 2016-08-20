@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import tweepy
 from twitter_authentication import API_KEY, API_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET
 import json
@@ -25,6 +25,10 @@ def twitter():
     max_tweets = 2
     searched_tweets = api.search(q=query, count=max_tweets)
     return json.dumps(searched_tweets)
+
+@app.route("/request_example")
+def request_example():
+    return "You entered {} from the url".format(request.args.get('input'))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
